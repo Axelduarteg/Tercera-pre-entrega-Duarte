@@ -1,0 +1,22 @@
+{% extends "AppCoder/padre.html" %}
+
+{% load static %}
+
+{% block titulo %}
+
+    <h>Bienvenidos a la pagina de Busqueda!</h>
+
+{% endblock %}
+
+{% block contenido_que_cambia %}
+
+<h3>{{ mensaje }}</h3>
+
+<form action="/Appcoder/buscandoEstudiante" method="GET">
+    
+    <input type="text" name="apellido" id="apellido" placeholder="inserte apellido">
+
+    <input type="submit" value="Busqueda">        
+</form>
+
+{% endblock %}

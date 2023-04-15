@@ -1,0 +1,48 @@
+{% extends "AppCoder/padre.html" %}
+
+{% load static %}
+
+{% block titulo %}
+
+    <h>Bienvenidos a la pagina de estudiantes!</h>
+
+{% endblock %}
+
+{% block contenido_que_cambia %}
+<h>Hola ESTUDIANTES</h>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+   <input type="submit" value="Agregar">        
+</form>
+
+<table>
+    <thead>
+       <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+       </tr>
+    </thead>
+    <tbody>
+        {% for estudiante in estudiantes %}
+        <tr>
+            <td>
+                {{ estudiante.id }}
+            </td>
+            <td>
+                {{ estudiante.nombre }}
+            </td>
+            <td>
+                {{ estudiante.apellido }}
+            </td>
+            <td>
+                {{ estudiante.email }}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

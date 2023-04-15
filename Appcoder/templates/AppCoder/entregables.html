@@ -1,0 +1,50 @@
+{% extends "AppCoder/padre.html" %}
+
+{% load static %}
+
+{% block titulo %}
+
+    <h>Bienvenidos a la pagina de entregables!</h>
+
+{% endblock %}
+
+{% block contenido_que_cambia %}
+
+<h>Hola PROFES</h>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+   <input type="submit" value="Agregar">        
+</form>
+
+<table>
+    <thead>
+       <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Fecha_De_Entrega</th>
+            <th>Entregado</th>
+       </tr>
+    </thead>
+    <tbody>
+        {% for Entrega in entregables %}
+        <tr>
+            <td>
+                {{ Entrega.id }}
+            </td>
+            <td>
+                {{ Entrega.nombre }}
+            </td>
+            <td>
+                {{ Entrega.fecha_entrega }}
+            </td>
+            <td>
+                {{ Entrega.entregado }}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

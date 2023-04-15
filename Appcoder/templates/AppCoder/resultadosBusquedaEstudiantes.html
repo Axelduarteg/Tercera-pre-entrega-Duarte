@@ -1,0 +1,49 @@
+{% extends "AppCoder/padre.html" %}
+
+{% load static %}
+
+{% block titulo %}
+
+    <h>Resultado de la Busqueda!</h>
+
+{% endblock %}
+
+{% block contenido_que_cambia %}
+
+{% if estudiantes %}
+
+<h2>LISTADO DE ESTUDIANTESTUDIANTES</h2>
+<table>
+    <thead>
+       <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+       </tr>
+    </thead>
+    <tbody>
+        {% for estudiante in estudiantes %}
+        <tr>
+            <td>
+                {{ estudiante.id }}
+            </td>
+            <td>
+                {{ estudiante.nombre }}
+            </td>
+            <td>
+                {{ estudiante.apellido }}
+            </td>
+            <td>
+                {{ estudiante.email }}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+
+<h2>NO HAY CURSOS QUE RESPONDAN A ESA BUSQUEDA</h2>
+
+{% endif %}
+{% endblock %}
