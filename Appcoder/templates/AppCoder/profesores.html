@@ -9,7 +9,8 @@
 {% endblock %}
 
 {% block contenido_que_cambia %}
-<h>Hola PROFES</h>
+<h1>Hola PROFES</h1>
+<h2> {{ mensaje }} </h2>
 
 <form action="" method="POST">
     {% csrf_token %}
@@ -25,6 +26,7 @@
             <th>Apellido</th>
             <th>Email</th>
             <th>Profesion</th>
+            <th>OPCIONES</th>
        </tr>
     </thead>
     <tbody>
@@ -44,6 +46,10 @@
             </td>
             <td>
                 {{ profesor.profesion }}
+            </td>
+            <td>
+                <a class="btn btn-danger" href="{% url 'eliminarProfesor' profesor.id %}">Eliminar</a>
+                <a class="btn btn-success" href="{% url 'profeFormulario' profesor.id %}">Editar</a>
             </td>
         </tr>
         {% endfor %}

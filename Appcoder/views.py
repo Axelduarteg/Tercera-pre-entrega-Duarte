@@ -50,6 +50,32 @@ def profesores(request):
     context = {"profesores": profesores, "form" : form}
     return render(request,"Appcoder/profesores.html", context)
 
+def editarProfesor(request, id):
+    profesor= Profesor.objects.get(id=id)
+    if request.method=="POST":
+        form= ProfesorForm(request.POST)
+        if form.is_valid():
+            info=form.cleaned_data
+            profesor.nombre=info["nombre"]
+            profesor.apellido=info["apellido"]
+            profesor.email=info["email"]
+            profesor.profesion=info["profesion"]
+            profesor.save()
+            profesores=Profesor.objects.all()
+            return render(request, "Appcoder/Profesores.html", {"profesores": profesores, "mensaje":"profesor editado corectamente"})
+        pass
+    else:
+        formulario= ProfesorForm(initial={"nombre":profesor.nombre, "apellido":profesor.apellido, "email":profesor.email, "profesion":profesor.profesion})
+        return render(request, "Appcoder/profeFormulario.html", {"form": formulario, "profesor":profesor})            
+
+def eliminarProfesor(request, id):
+    profesor=Profesor.objects.get(id=id)
+    print(profesor)
+    profesor.delete()
+    profesores=Profesor.objects.all()
+    form = ProfesorForm()
+    return render (request,"Appcoder/Profesores.html", {"profesores": profesores, "mensaje":"profesor eliminado corectamente", "form": form})
+
 def estudiantes(request):
     
     if request.method == "POST":
@@ -103,5 +129,15 @@ def buscandoEstudiante(request):
         return render(request, "Appcoder/resultadosBusquedaEstudiantes.html", {"estudiantes": estudiantes})
     else:
         return render(request, "Appcoder/busquedaEstudiante.html", {"mensaje": "No as ingresado un apellido para buscar"})
+
+def busquedaComision(request):
+    return render(request,"Appcoder/busquedaComision.html")
+
+def buscar(request):
     
-    
+    comision= request.GET["comision"]
+    if comision!="":
+        cursos=Curso.filter(comision__icontains=comision)
+        return render(request, "Appcoder/busquedaComision.html", {"cursos": cursos})
+    else:
+        return render(request, "Appcoder/busquedaComision.html", {"mensaje": "Ingresa una comision para buscar"})
